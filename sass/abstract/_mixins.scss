@@ -1,0 +1,67 @@
+@mixin clearfix {
+    &::after {
+        content:  " ";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin absCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// media query manager
+/*
+Breaking points
+===============
+=> 0 - 600px;   phone
+=> 600 - 900px; Tablet potrait
+=> 900 - 1200px; Tablet landscape
+=> 1200 - 1800px; Normal styles applied
+=> 1800 +  ; Big screen
+
+
+$breakpoint argument values
+===========================
+=> phone
+=> tab-port
+=> tab-land
+=> big-desktop
+
+-> the best reposnive unit is em (from research )
+    - So, 1 em  = 16px
+
+ORDER OF EXECUTION
+==================
+=> create mixin respond manager + breaking point
+=> execution of base + typography 
+=> execution of general layout + grid layout
+=> execution of components 
+
+*/
+
+
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        @media only screen and (max-width : 37.5em) { @content }; 
+        //600px
+    }
+
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width : 56.25em) { @content };
+        //900px
+    }
+
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width : 75em) { @content };
+        //1200px
+    }
+
+    @if $breakpoint == big-dekstop {
+        @media only screen and (min-width : 112.5em) { @content };
+        //1800px
+    }
+}
